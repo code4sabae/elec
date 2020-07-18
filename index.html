@@ -1,0 +1,81 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>鯖江市長候補者比較サイト - 鯖江市長選2020 オープンデータ</title>
+<style>
+body {
+  font-family: sans-serif;
+  text-align: center;
+}
+table {
+  border-collapse: separete;
+  display: inline;
+}
+td {
+  border: solid 1px gray;
+  word-break: break-all;
+  padding: .3em;
+  text-align: center;
+  width: 30%;
+}
+#credit {
+  margin: 1em;
+}
+</style>
+</head>
+<body>
+<h2>鯖江市長候補者比較サイト</h2>
+<div id="main"></div>
+
+<script type="module">
+
+(async () => {
+  const url = "https://push.sabae.cc/386.json";
+  const json = await (await fetch(url)).json();
+  console.log(json);
+
+  const view = ["市長候補名", "キャッチフレーズ", "公式サイトURL", "ブログ", "Twitter", "Facebook", "Instagram", "職歴", "学歴", "出身地", "候補時年齢", "オープンデータ"];
+
+  json.forEach(d => d.オープンデータ = "https://push.sabae.cc/" + d.id);
+  json.forEach(d => d.候補時年齢 += "才");
+
+  const link = (parent, name, link) => {
+    link = link || "https://www.google.com/search?q=" + encodeURIComponent(name);
+    const a = cr("a");
+    a.textContent = name;
+    a.href = link;
+    a.target = "_blank";
+    parent.appendChild(a);
+  };
+  const cr = tag => document.createElement(tag);
+
+  const tbl = cr("table");
+  main.appendChild(tbl);
+  for (const v of view) {
+    const tr = cr("tr");
+    tbl.appendChild(tr);
+    for (const data of json) {
+      const td = cr("td");
+      tr.appendChild(td);
+      const val = data[v];
+      if (val.startsWith("http")) {
+        link(td, v, val);
+      } else {
+        const vals = val.split("、");
+        for (const i of vals) {
+          const div = cr("div");
+          link(div, i);
+          td.appendChild(div);
+        }
+      }
+    }
+  }
+})();
+</script>
+
+<div id="credit">
+  <div>データ出展：CC BY <a href=https://push.sabae.cc/386>鯖江市長選2020オープンデータ</a> - <a href=https://push.sabae.cc/383>田村やすお</a>、<a href=https://push.sabae.cc/384>山岸みつる</a>、<a href=https://push.sabae.cc/385>佐々木勝久</a> （表明順）</div>
+  <div>アプリ：CC BY <a href=https://c4.sabae.cc/>Code for Sabae</a> (<a href=https://code4sabae.github.com/elec>src on GitHub</a>)</div>
+</div>
+
+</body>
+</html>
