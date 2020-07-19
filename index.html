@@ -36,7 +36,7 @@ td {
   const json = await (await fetch(url)).json();
   console.log(json);
 
-  const view = ["市長候補名", "キャッチフレーズ", "公式サイトURL", "ブログ", "Twitter", "Facebook", "Instagram", "職歴", "学歴", "出身地", "候補時年齢", "オープンデータ"];
+  const view = ["プロフィール写真URL", "市長候補名", "キャッチフレーズ", "公式サイトURL", "ブログ", "YouTube", "Twitter", "Facebook", "Instagram", "職歴", "学歴", "出身地", "候補時年齢", "オープンデータ"];
 
   json.forEach(d => d.オープンデータ = "https://push.sabae.cc/" + d.id);
   json.forEach(d => d.候補時年齢 += "才");
@@ -60,7 +60,16 @@ td {
       const td = cr("td");
       tr.appendChild(td);
       const val = data[v];
-      if (val.startsWith("http")) {
+      if (val == null) {
+        const div = cr("div");
+        td.appendChild(div);
+      } else if (val.endsWith(".jpg")) {
+        td.style.height = "15vh";
+        td.style.backgroundImage = `url(${val})`;
+        td.style.backgroundSize = "auto 100%";
+        td.style.backgroundRepeat = "no-repeat";
+        td.style.backgroundPosition = "center center";
+      } else if (val.startsWith("http")) {
         link(td, v, val);
       } else {
         const vals = val.split("、");
