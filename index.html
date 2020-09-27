@@ -16,7 +16,7 @@ h1 {
   padding: 0;
 }
 h2 {
-  margin: 1em 0 0 0;
+  margin: 1em 0 .5em 0;
   padding: 0;
 }
 table {
@@ -46,6 +46,16 @@ td {
 #movie img, #movie iframe {
   width: 25vw;
   height: 15vw;
+}
+#q18 td {
+  vertical-align: top;
+  font-size: 85%;
+}
+#q18 th {
+  font-size: 110%;
+}
+#q18 tr {
+  overflow: hidden;
 }
 #imgpr {
   width: 80%;
@@ -78,7 +88,6 @@ td {
 <div id="main"></div>
 
 <script type="module">
-
 (async () => {
   const url = "https://push.sabae.cc/386.json";
   const json = await (await fetch(url)).json();
@@ -133,6 +142,63 @@ td {
     }
   }
 })();
+</script>
+
+<h2>OCサミット実行委員会からの18の設問</h2>
+<div id="q18"></div>
+
+<script type="module">
+
+import { CSV } from "https://code4sabae.github.io/js/CSV.js";
+
+(async () => {
+  const path = "data/question18.csv";
+  const csv = await (await fetch(path)).text();
+  const data = CSV.toJSON(CSV.decode(csv));
+  console.log(data);
+
+  const cr = tag => document.createElement(tag);
+
+  const tbl = cr("table");
+  const cand = ["田村康夫氏", "山岸みつる氏", "佐々木勝久氏"];
+  q18.appendChild(tbl);
+  const link = (url, txt) => {
+    const a = cr("a");
+    a.href = url;
+    const span = cr("span");
+    span.textContent = txt;
+    a.appendChild(span);
+    return a;
+  };
+  for (const q of data) {
+    const tr = cr("tr");
+    tbl.appendChild(tr);
+    const th = cr("th");
+    th.colSpan = 3;
+    th.appendChild(link(q.URL, q.設問番号 + ". " + q.設問));
+    tr.appendChild(th);
+    const tr2 = cr("tr");
+    tbl.appendChild(tr2);
+    for (let i = 0; i < cand.length; i++) {
+      const td = cr("td");
+      const span1 = cr("span");
+      span1.textContent = q[cand[i]] + "...後略（" + cand[i] + "）";
+      td.appendChild(span1);
+      tr2.appendChild(td);
+    }
+    /*
+    //tr2.hidden = true;
+    tr.ctrl = tr2;
+    tr.onclick = function() {
+      const tr2 = this.ctrl; // nextSibling;
+      // tr2.style.height = tr2.style.height == "0px" ? "100px" : "0px";
+      //tr2.style.visibility = tr2.style.height == "0px" ? "hidden" : "visible";
+      tr2.hidden = !tr2.hidden;
+    };
+    */
+  }
+})();
+
 </script>
 
 <div id="credit">
