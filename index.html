@@ -59,6 +59,7 @@ td {
 #q18 td {
   vertical-align: top;
   font-size: 85%;
+  text-align: left;
 }
 #q18 th {
   font-size: 110%;
@@ -191,8 +192,12 @@ import { CSV } from "https://code4sabae.github.io/js/CSV.js";
     for (let i = 0; i < cand.length; i++) {
       const td = cr("td");
       const span1 = cr("span");
-      span1.textContent = q[cand[i]] + "...後略（" + cand[i] + "）";
+      span1.textContent = q[cand[i]] + "...後略（";
       td.appendChild(span1);
+      td.appendChild(link(q.URL, cand[i]));
+      const span2 = cr("span");
+      span2.textContent = "）";
+      td.appendChild(span2);
       tr2.appendChild(td);
     }
     /*
