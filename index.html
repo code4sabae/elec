@@ -15,6 +15,10 @@ h1 {
   margin: .5vw;
   padding: 0;
 }
+h2 {
+  margin: 1em 0 0 0;
+  padding: 0;
+}
 table {
   border-collapse: separete;
   display: inline;
@@ -27,10 +31,21 @@ td {
   width: 30%;
 }
 #movie {
+  x-display: inline-block;
+  x-width: 100vw;
+  margin: 1em 0 1.5em 0;
+  x-padding: 0.5em 2em;
+  x-border: .5vw solid red;
+}
+#movie .file {
+  vertical-align: top;
   display: inline-block;
-  margin: 1em;
-  padding: 0.5em 2em;
-  border: .5vw solid red;
+  x-border: 1px solid black;
+  width: 30vw;
+}
+#movie img, #movie iframe {
+  width: 25vw;
+  height: 15vw;
 }
 #imgpr {
   width: 80%;
@@ -43,10 +58,23 @@ td {
 <body>
 <h1>鯖江市長候補者比較サイト</h1>
 
+<h2>公開討論動画</h2>
 <div id="movie">
-  <a href="https://www.youtube.com/watch?v=hWDcholg5jQ#t=830" x-href="https://www.youtube.com/watch?v=hWDcholg5jQ">公開討論会 on YouTube 8.22 14:00-15:30</a><br>
-  （主催：<a href="https://oc-summit.jimdosite.com/%E6%9C%80%E6%96%B0%E6%83%85%E5%A0%B1/">ＯＣサミット実行委員会と有志の会</a>）
+  <div class="file">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/hWDcholg5jQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br>
+    <a href="https://www.youtube.com/watch?v=hWDcholg5jQ#t=830" x-href="https://www.youtube.com/watch?v=hWDcholg5jQ">公開討論会</a> | <a href="https://oc-summit.jimdosite.com/%E6%9C%80%E6%96%B0%E6%83%85%E5%A0%B1/">ＯＣサミット実行委員会と有志の会</a>
+  </div>
+  <div class="file">
+    <a href="https://www.fukui-tv.co.jp/?post_type=timely_opinion&p=132490&page=2"><img src="img/fukuitv.jpg"></a><br>
+    <a href="https://www.fukui-tv.co.jp/?post_type=timely_opinion&p=132490&page=2">鯖江市長選へ3人討論 | オピニオントーク [これまでの放送] | タイムリーふくい | 福井テレビ</a>
+  </div>
+  <div class="file">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/gMHVGtRBMx8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br>
+    <a href="https://www.youtube.com/watch?v=gMHVGtRBMx8&t=764s">鯖江市長選2020 公開討論会 | 鯖江市長選挙公開討論会実行委員会</a>
+  </div>
 </div>
+
+<h2>オープンデータ</h2>
 <div id="main"></div>
 
 <script type="module">
