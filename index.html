@@ -10,8 +10,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
 <meta name="twitter:card" content="summary_large_image">
-<meta property="og:image" content="https://elec.sabae.club/ogp2.jpg">
-<meta name="twitter:image" content="https://elec.sabae.club/ogp2.jpg">
+<meta property="og:image" content="https://elec.sabae.club/ogp3.jpg">
+<meta name="twitter:image" content="https://elec.sabae.club/ogp3.jpg">
 <meta property="og:title" content="鯖江市長候補者比較サイト - 鯖江市長選2020 オープンデータ">
 <title>鯖江市長候補者比較サイト - 鯖江市長選2020 オープンデータ</title>
 <style>
@@ -27,6 +27,9 @@ h1 {
 h2 {
   margin: 1em 0 .5em 0;
   padding: 0;
+}
+#poster img {
+  width: 30vw;
 }
 table {
   border-collapse: separete;
@@ -94,6 +97,14 @@ td {
   </div>
 </div>
 
+<h2>選挙ポスター</h2>
+<div id="poster">
+  <a href="img/tamura_poster.jpg"><img src="img/tamura_poster.jpg"></a>
+  <a href="img/yamagishi_poster.jpg"><img src="img/yamagishi_poster.jpg"></a>
+  <a href="img/sasaki_poster.jpg"><img src="img/sasaki_poster.jpg"></a>
+</div>
+
+
 <h2>オープンデータ</h2>
 <div id="main"></div>
 
@@ -103,7 +114,8 @@ td {
   const json = await (await fetch(url)).json();
   console.log(json);
 
-  const view = ["プロフィール写真URL", "市長候補名", "キャッチフレーズ", "公式サイトURL", "ブログ", "YouTube", "Twitter", "Facebook", "Instagram", "職歴", "学歴", "出身地", "候補時年齢", "オープンデータ"];
+//  const view = ["プロフィール写真URL", "市長候補名", "キャッチフレーズ", "公式サイトURL", "ブログ", "YouTube", "Twitter", "Facebook", "Instagram", "職歴", "学歴", "出身地", "候補時年齢", "オープンデータ"];
+  const view = ["市長候補名", "キャッチフレーズ", "公式サイトURL", "ブログ", "YouTube", "Twitter", "Facebook", "Instagram", "職歴", "学歴", "出身地", "候補時年齢", "オープンデータ"];
 
   json.forEach(d => d.オープンデータ = "https://push.sabae.cc/" + d.id);
   json.forEach(d => d.候補時年齢 += "才");
