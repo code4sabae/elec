@@ -77,10 +77,85 @@ td {
 #credit {
   margin: 1em;
 }
+.src {
+  font-size: 80%;
+}
 </style>
 </head>
 <body>
 <h1>鯖江市長候補者比較サイト</h1>
+
+<!-- プロフィール帳 -->
+
+<h2>プロフィール帳</h2>
+<div id="prof"></div>
+<div class="src">データ出典：<a href=https://ameblo.jp/ocsummit/entry-12619480286.html>OCサミット実行委員会</a></div>
+<style>
+#prof img {
+  width: 29vw;
+}
+</style>
+<script type="module">
+import { CSV } from "https://code4sabae.github.io/js/CSV.js";
+
+(async () => {
+  const path = "data/prof.csv";
+  const csv = await (await fetch(path)).text();
+  const data = CSV.toJSON(CSV.decode(csv));
+  console.log(data);
+
+  const cr = tag => document.createElement(tag);
+  const exclude = ["id", "提供"];
+  const tbl = cr("table");
+  prof.appendChild(tbl);
+  for (const q in data[0]) {
+    if (exclude.indexOf(q) >= 0) {
+      continue;
+    }
+    if (q === "img") {
+      const tr2 = cr("tr");
+      tbl.appendChild(tr2);
+      for (const cand of data) {
+        const td = cr("td");
+        td.style.border = "none";
+        const img = new Image();
+        const url = cand[q];
+        const a = cr("a");
+        a.href = url;
+        img.src = url;
+        a.appendChild(img);
+        td.appendChild(a);
+        tr2.appendChild(td);
+      }
+    } else {
+      const tr = cr("tr");
+      tbl.appendChild(tr);
+      const th = cr("th");
+      th.colSpan = 3;
+      th.textContent = q;
+      tr.appendChild(th);
+      const tr2 = cr("tr");
+      tbl.appendChild(tr2);
+      for (const cand of data) {
+        const td = cr("td");
+        td.textContent = cand[q];
+        tr2.appendChild(td);
+      }
+    }
+  }
+})();
+</script>
+
+<!-- 選挙ポスター -->
+
+<h2>選挙ポスター</h2>
+<div id="poster">
+  <a href="img/tamura_poster.jpg"><img src="img/tamura_poster.jpg"></a>
+  <a href="img/yamagishi_poster.jpg"><img src="img/yamagishi_poster.jpg"></a>
+  <a href="img/sasaki_poster.jpg"><img src="img/sasaki_poster.jpg"></a>
+</div>
+
+<!-- 公開討論会 -->
 
 <h2>公開討論動画</h2>
 <div id="movie">
@@ -100,17 +175,11 @@ td {
   </div>
 </div>
 
-<h2>選挙ポスター</h2>
-<div id="poster">
-  <a href="img/tamura_poster.jpg"><img src="img/tamura_poster.jpg"></a>
-  <a href="img/yamagishi_poster.jpg"><img src="img/yamagishi_poster.jpg"></a>
-  <a href="img/sasaki_poster.jpg"><img src="img/sasaki_poster.jpg"></a>
-</div>
-
+<!-- オープンデータ -->
 
 <h2>オープンデータ</h2>
 <div id="main"></div>
-
+<div class="src">データ出典：<a href=https://push.sabae.cc/386.json>各候補者によるオープンデータ</a></div>
 <script type="module">
 (async () => {
   const url = "https://push.sabae.cc/386.json";
@@ -169,9 +238,11 @@ td {
 })();
 </script>
 
+<!-- OCサミット実行委員会からの18の設問 -->
+
 <h2>OCサミット実行委員会からの18の設問</h2>
 <div id="q18"></div>
-
+<div class="src">データ出典：<a href=https://ameblo.jp/ocsummit/entrylist.html>OCサミット実行委員会</a></div>
 <script type="module">
 
 import { CSV } from "https://code4sabae.github.io/js/CSV.js";
@@ -227,14 +298,39 @@ import { CSV } from "https://code4sabae.github.io/js/CSV.js";
     */
   }
 })();
-
 </script>
 
+
+<style>
+#vote td {
+  vertical-align: top;
+}
+</style>
 <h2>投票する</h2>
-<div id="pr">
-「<a href=https://www.city.sabae.fukui.jp/about_city/senkyo/oshirase/Senkyo0120200925.html>指定投票所17箇所 10/4(日) 7:00-20:00</a>、<a href=https://www.city.sabae.fukui.jp/about_city/senkyo/oshirase/Senkyo-taisaku.files/0778532251.pdf>9-11時が混みそうです</a>、<a href=https://code4fukui.github.io/find/findpolls.html>投票所を探す</a>」<br>
-「<a href=https://www.city.sabae.fukui.jp/about_city/senkyo/oshirase/Senkyo0120200925.html xhref=https://www.city.sabae.fukui.jp/about_city/senkyo/Senkyo-kijtumae.html>期日前投票（きじつぜんとうひょう）、鯖江市役所 9/28(月)〜10/3(土) 8:30-20:00、アル・プラザ鯖江 9/30(水)〜10/3(土) 10:00-20:00</a>」<br>
-「<a href=https://www.city.sabae.fukui.jp/about_city/senkyo/fuzaishatohyo/index.html>不在者投票（郵送必要なのでお早めに！）</a>」<br>
+<div id="vote">
+<table>
+  <tr><th>不在者投票</th><th>期日前投票</th><th>投票日に投票する</th></tr>
+  <tr>
+    <td>
+      住民票が鯖江市にあり、遠方に住んでいる方や、入院されている方向け。<br>
+      → <a href=https://www.city.sabae.fukui.jp/about_city/senkyo/fuzaishatohyo/index.html>不在者投票（郵送必要なのでお早めに！）</a>
+    </td>
+    <td>
+      鯖江市役所とアル・プラザ鯖江店で投票できます。<br>
+      健康保険証、運転免許証、マイナンバーカードほかがあればOK！<br>
+      → <a href=https://www.city.sabae.fukui.jp/about_city/senkyo/oshirase/Senkyo0120200925.html xhref=https://www.city.sabae.fukui.jp/about_city/senkyo/Senkyo-kijtumae.html>期日前投票（きじつぜんとうひょう）</a><br>
+      鯖江市役所 9/28(月)〜10/3(土) 8:30-20:00<br>
+      アル・プラザ鯖江 9/30(水)〜10/3(土) 10:00-20:00<br>
+    </td>
+    <td>
+      地区により指定の投票所で朝7時から投票できます。<br>
+      *投票案内はがきがなくても、健康保険証、運転免許証、マイナンバーカードほかがあればOK！<br>
+      → <a href=https://www.city.sabae.fukui.jp/about_city/senkyo/oshirase/Senkyo0120200925.html>指定投票所17箇所 10/4(日) 7:00-20:00</a><br>
+      <a href=https://www.city.sabae.fukui.jp/about_city/senkyo/oshirase/Senkyo-taisaku.files/0778532251.pdf>9-11時が混みそうです</a><br>
+      <a href=https://code4fukui.github.io/find/findpolls.html>投票所を探す</a><br>
+    </td>
+  </tr>
+</table>
 <div>
 
 <div id="credit">
