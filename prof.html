@@ -13,22 +13,25 @@
 <meta property="og:image" content="https://elec.sabae.club/prof.jpg">
 <meta name="twitter:image" content="https://elec.sabae.club/prof.jpg">
 <meta property="og:title" content="鯖江市長候補者比較サイト - 鯖江市長選2020 オープンデータ">
-<title>鯖江市長候補者プロフ帳 - 鯖江市長選2020 オープンデータ</title>
+<title>10代、20代が考案した 鯖江市長候補者のここが知りたい！ - 鯖江市長選2020 オープンデータ</title>
 <meta property="og:description" content="鯖江市長選の3候補者による、3つの公開討論会動画リンク、選挙ポスター、出身地・職歴・学歴・SNSなど各種基本情報オープンデータ、OCサミット実行委員会からの18の設問から比較できるサイトです。鯖江市長に最もふさわしい人を選び、投票しましょう。 #鯖江市長選">
+
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300&display=swap" rel="stylesheet">
 <style>
 body {
   font-family: sans-serif;
   text-align: center;
   background-color: #FFFDBA;
   color: #333;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
 }
 td {
-  background-color: #fefefe;
+  font-size: 110%;
 }
 h1 {
-  font-size: 6vw;
+  font-size: 4.5vw;
   margin: 0 0;
-  padding: 2vw 0 5vw 0;
+  padding: 2vw 0 3vw 0;
 }
 h2 {
   margin: 1em 0 .5em 0;
@@ -41,7 +44,11 @@ table {
   border-collapse: separete;
   display: inline;
 }
-td {
+#prof table {
+  border-collapse: collapse;
+}
+td, th {
+  background-color: #fefefe;
   border: solid 1px gray;
   word-break: break-all;
   padding: .3em;
@@ -88,8 +95,7 @@ td {
 </style>
 </head>
 <body>
-<h1>鯖江市長候補者プロフ帳</h1>
-
+<h1>10代、20代が考案した<br>鯖江市長候補者のここが知りたい！</h1>
 
 <!-- プロフィール帳 -->
 
@@ -98,7 +104,7 @@ td {
 <div class="src">データ出典：<a href=https://ameblo.jp/ocsummit/entry-12619480286.html>OCサミット実行委員会</a></div>
 <style>
 #prof img {
-  width: 29vw;
+  width: 25vw;
 }
 </style>
 <script type="module">
@@ -121,9 +127,11 @@ import { CSV } from "https://code4sabae.github.io/js/CSV.js";
     if (q === "img") {
       const tr2 = cr("tr");
       tbl.appendChild(tr2);
+      const th = cr("th");
+      tr2.appendChild(th);
       for (const cand of data) {
         const td = cr("td");
-        td.style.border = "none";
+        // td.style.border = "none";
         const img = new Image();
         const url = cand[q];
         const a = cr("a");
@@ -136,16 +144,13 @@ import { CSV } from "https://code4sabae.github.io/js/CSV.js";
     } else {
       const tr = cr("tr");
       tbl.appendChild(tr);
-      const th = cr("th");
-      th.colSpan = 3;
-      th.textContent = q;
+      const th = cr("td");
+        th.textContent = q;
       tr.appendChild(th);
-      const tr2 = cr("tr");
-      tbl.appendChild(tr2);
       for (const cand of data) {
         const td = cr("td");
         td.textContent = cand[q];
-        tr2.appendChild(td);
+        tr.appendChild(td);
       }
     }
   }
