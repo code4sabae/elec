@@ -85,76 +85,6 @@ td {
 <body>
 <h1>鯖江市長候補者比較サイト</h1>
 
-<!-- プロフィール帳 -->
-
-<h2>プロフィール帳</h2>
-<div id="prof"></div>
-<div class="src">データ出典：<a href=https://ameblo.jp/ocsummit/entry-12619480286.html>OCサミット実行委員会</a></div>
-<style>
-#prof img {
-  width: 29vw;
-}
-</style>
-<script type="module">
-import { CSV } from "https://code4sabae.github.io/js/CSV.js";
-
-(async () => {
-  const path = "data/prof.csv";
-  const csv = await (await fetch(path)).text();
-  const data = CSV.toJSON(CSV.decode(csv));
-  console.log(data);
-
-  const cr = tag => document.createElement(tag);
-  const exclude = ["id", "提供"];
-  const tbl = cr("table");
-  prof.appendChild(tbl);
-  for (const q in data[0]) {
-    if (exclude.indexOf(q) >= 0) {
-      continue;
-    }
-    if (q === "img") {
-      const tr2 = cr("tr");
-      tbl.appendChild(tr2);
-      for (const cand of data) {
-        const td = cr("td");
-        td.style.border = "none";
-        const img = new Image();
-        const url = cand[q];
-        const a = cr("a");
-        a.href = url;
-        img.src = url;
-        a.appendChild(img);
-        td.appendChild(a);
-        tr2.appendChild(td);
-      }
-    } else {
-      const tr = cr("tr");
-      tbl.appendChild(tr);
-      const th = cr("th");
-      th.colSpan = 3;
-      th.textContent = q;
-      tr.appendChild(th);
-      const tr2 = cr("tr");
-      tbl.appendChild(tr2);
-      for (const cand of data) {
-        const td = cr("td");
-        td.textContent = cand[q];
-        tr2.appendChild(td);
-      }
-    }
-  }
-})();
-</script>
-
-<!-- 選挙ポスター -->
-
-<h2>選挙ポスター</h2>
-<div id="poster">
-  <a href="img/tamura_poster.jpg"><img src="img/tamura_poster.jpg"></a>
-  <a href="img/yamagishi_poster.jpg"><img src="img/yamagishi_poster.jpg"></a>
-  <a href="img/sasaki_poster.jpg"><img src="img/sasaki_poster.jpg"></a>
-</div>
-
 <!-- 公開討論会 -->
 
 <h2>公開討論動画</h2>
@@ -173,6 +103,15 @@ import { CSV } from "https://code4sabae.github.io/js/CSV.js";
     <!--<iframe width="560" height="315" src="https://www.youtube.com/embed/gMHVGtRBMx8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br>-->
     <a href="https://www.youtube.com/watch?v=gMHVGtRBMx8&t=764s">鯖江市長選2020 公開討論会 | 鯖江市長選挙公開討論会実行委員会</a>
   </div>
+</div>
+
+<!-- 選挙ポスター -->
+
+<h2>選挙ポスター</h2>
+<div id="poster">
+  <a href="img/tamura_poster.jpg"><img src="img/tamura_poster.jpg"></a>
+  <a href="img/yamagishi_poster.jpg"><img src="img/yamagishi_poster.jpg"></a>
+  <a href="img/sasaki_poster.jpg"><img src="img/sasaki_poster.jpg"></a>
 </div>
 
 <!-- オープンデータ -->
@@ -237,6 +176,68 @@ import { CSV } from "https://code4sabae.github.io/js/CSV.js";
   }
 })();
 </script>
+
+<!-- プロフィール帳 -->
+
+<h2>プロフィール帳</h2>
+<div id="prof"></div>
+<div class="src">データ出典：<a href=https://ameblo.jp/ocsummit/entry-12619480286.html>OCサミット実行委員会</a>（<a href=prof.html>プロフのみ</a>）</div>
+<style>
+#prof img {
+  width: 29vw;
+}
+</style>
+<script type="module">
+import { CSV } from "https://code4sabae.github.io/js/CSV.js";
+
+(async () => {
+  const path = "data/prof.csv";
+  const csv = await (await fetch(path)).text();
+  const data = CSV.toJSON(CSV.decode(csv));
+  console.log(data);
+
+  const cr = tag => document.createElement(tag);
+  const exclude = ["id", "提供"];
+  const tbl = cr("table");
+  prof.appendChild(tbl);
+  for (const q in data[0]) {
+    if (exclude.indexOf(q) >= 0) {
+      continue;
+    }
+    if (q === "img") {
+      const tr2 = cr("tr");
+      tbl.appendChild(tr2);
+      for (const cand of data) {
+        const td = cr("td");
+        td.style.border = "none";
+        const img = new Image();
+        const url = cand[q];
+        const a = cr("a");
+        a.href = url;
+        img.src = url;
+        a.appendChild(img);
+        td.appendChild(a);
+        tr2.appendChild(td);
+      }
+    } else {
+      const tr = cr("tr");
+      tbl.appendChild(tr);
+      const th = cr("th");
+      th.colSpan = 3;
+      th.textContent = q;
+      tr.appendChild(th);
+      const tr2 = cr("tr");
+      tbl.appendChild(tr2);
+      for (const cand of data) {
+        const td = cr("td");
+        td.textContent = cand[q];
+        tr2.appendChild(td);
+      }
+    }
+  }
+})();
+</script>
+
 
 <!-- OCサミット実行委員会からの18の設問 -->
 
@@ -334,8 +335,6 @@ import { CSV } from "https://code4sabae.github.io/js/CSV.js";
 <div>
 
 <div id="credit">
-  <div>データ出展：CC BY <a href="https://push.sabae.cc/386">鯖江市長選2020オープンデータ</a> - <a href=https://push.sabae.cc/383>田村やすお</a>、<a href=https://push.sabae.cc/384>山岸みつる</a>、<a href=https://push.sabae.cc/385>佐々木勝久</a> （表明順）</div>
-  <div>設問出典：<a href=https://ameblo.jp/ocsummit/>公開質問状 設問1〜18　ご回答 | OCサミット実行委員会</a><div>
   <div>アプリ：CC BY <a href=https://c4.sabae.cc/>Code for Sabae</a> (<a href=https://github.com/code4sabae/elec>src on GitHub</a>)</div>
   <script type='module' src="https://code4sabae.github.io/leaflet-mjs/qr-code.mjs"></script>
   <qr-code></qr-code>

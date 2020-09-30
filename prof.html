@@ -1,0 +1,223 @@
+<!DOCTYPE html><html><head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-179125975-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-179125975-1');
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://elec.sabae.club/prof.jpg">
+<meta name="twitter:image" content="https://elec.sabae.club/prof.jpg">
+<meta property="og:title" content="鯖江市長候補者比較サイト - 鯖江市長選2020 オープンデータ">
+<title>鯖江市長候補者プロフ帳 - 鯖江市長選2020 オープンデータ</title>
+<meta property="og:description" content="鯖江市長選の3候補者による、3つの公開討論会動画リンク、選挙ポスター、出身地・職歴・学歴・SNSなど各種基本情報オープンデータ、OCサミット実行委員会からの18の設問から比較できるサイトです。鯖江市長に最もふさわしい人を選び、投票しましょう。 #鯖江市長選">
+<style>
+body {
+  font-family: sans-serif;
+  text-align: center;
+  background-color: #FFFDBA;
+  color: #333;
+}
+td {
+  background-color: #fefefe;
+}
+h1 {
+  font-size: 6vw;
+  margin: 0 0;
+  padding: 2vw 0 5vw 0;
+}
+h2 {
+  margin: 1em 0 .5em 0;
+  padding: 0;
+}
+#poster img {
+  width: 30vw;
+}
+table {
+  border-collapse: separete;
+  display: inline;
+}
+td {
+  border: solid 1px gray;
+  word-break: break-all;
+  padding: .3em;
+  text-align: center;
+  width: 30%;
+}
+#movie {
+  x-display: inline-block;
+  x-width: 100vw;
+  margin: 1em 0 1.5em 0;
+  x-padding: 0.5em 2em;
+  x-border: .5vw solid red;
+}
+#movie .file {
+  vertical-align: top;
+  display: inline-block;
+  x-border: 1px solid black;
+  width: 30vw;
+}
+#movie img, #movie iframe {
+  width: 25vw;
+  height: 15vw;
+}
+#q18 td {
+  vertical-align: top;
+  font-size: 85%;
+  text-align: left;
+}
+#q18 th {
+  font-size: 110%;
+}
+#q18 tr {
+  overflow: hidden;
+}
+#imgpr {
+  width: 80%;
+}
+#credit {
+  margin: 1em;
+}
+.src {
+  font-size: 80%;
+}
+</style>
+</head>
+<body>
+<h1>鯖江市長候補者プロフ帳</h1>
+
+
+<!-- プロフィール帳 -->
+
+<!--<h2>プロフィール帳</h2>-->
+<div id="prof"></div>
+<div class="src">データ出典：<a href=https://ameblo.jp/ocsummit/entry-12619480286.html>OCサミット実行委員会</a></div>
+<style>
+#prof img {
+  width: 29vw;
+}
+</style>
+<script type="module">
+import { CSV } from "https://code4sabae.github.io/js/CSV.js";
+
+(async () => {
+  const path = "data/prof.csv";
+  const csv = await (await fetch(path)).text();
+  const data = CSV.toJSON(CSV.decode(csv));
+  console.log(data);
+
+  const cr = tag => document.createElement(tag);
+  const exclude = ["id", "提供"];
+  const tbl = cr("table");
+  prof.appendChild(tbl);
+  for (const q in data[0]) {
+    if (exclude.indexOf(q) >= 0) {
+      continue;
+    }
+    if (q === "img") {
+      const tr2 = cr("tr");
+      tbl.appendChild(tr2);
+      for (const cand of data) {
+        const td = cr("td");
+        td.style.border = "none";
+        const img = new Image();
+        const url = cand[q];
+        const a = cr("a");
+        a.href = url;
+        img.src = url;
+        a.appendChild(img);
+        td.appendChild(a);
+        tr2.appendChild(td);
+      }
+    } else {
+      const tr = cr("tr");
+      tbl.appendChild(tr);
+      const th = cr("th");
+      th.colSpan = 3;
+      th.textContent = q;
+      tr.appendChild(th);
+      const tr2 = cr("tr");
+      tbl.appendChild(tr2);
+      for (const cand of data) {
+        const td = cr("td");
+        td.textContent = cand[q];
+        tr2.appendChild(td);
+      }
+    }
+  }
+})();
+</script>
+
+<!-- 公開討論会 -->
+
+<h2>3候補者による公開討論動画</h2>
+<div id="movie">
+  <div class="file">
+    <a href=https://www.youtube.com/watch?v=hWDcholg5jQ><img src="img/movie_oc.jpg"></a><br>
+    <!--<iframe width="560" height="315" src="https://www.youtube.com/embed/hWDcholg5jQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br>-->
+    <a href="https://www.youtube.com/watch?v=hWDcholg5jQ#t=830" x-href="https://www.youtube.com/watch?v=hWDcholg5jQ">公開討論会</a> | <a href="https://oc-summit.jimdosite.com/%E6%9C%80%E6%96%B0%E6%83%85%E5%A0%B1/">ＯＣサミット実行委員会と有志の会</a>
+  </div>
+  <div class="file">
+    <a href="https://www.fukui-tv.co.jp/?post_type=timely_opinion&p=132490&page=2"><img src="img/fukuitv.jpg"></a><br>
+    <a href="https://www.fukui-tv.co.jp/?post_type=timely_opinion&p=132490&page=2">鯖江市長選へ3人討論 | オピニオントーク [これまでの放送] | タイムリーふくい | 福井テレビ</a>
+  </div>
+  <div class="file">
+    <a href=https://www.youtube.com/watch?v=gMHVGtRBMx8&t=467s><img src="img/movie_jc.jpg"></a><br>
+    <!--<iframe width="560" height="315" src="https://www.youtube.com/embed/gMHVGtRBMx8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br>-->
+    <a href="https://www.youtube.com/watch?v=gMHVGtRBMx8&t=764s">鯖江市長選2020 公開討論会 | 鯖江市長選挙公開討論会実行委員会</a>
+  </div>
+</div>
+
+<h2><a href="./">もっとデータをみる</a></h2>
+
+<style>
+#vote td {
+  vertical-align: top;
+}
+</style>
+<h2>投票する</h2>
+<div id="vote">
+<table>
+  <tr><th>不在者投票</th><th>期日前投票</th><th>投票日に投票する</th></tr>
+  <tr>
+    <td>
+      住民票が鯖江市にあり、遠方に住んでいる方や、入院されている方向け。<br>
+      → <a href=https://www.city.sabae.fukui.jp/about_city/senkyo/fuzaishatohyo/index.html>不在者投票（郵送必要なのでお早めに！）</a>
+    </td>
+    <td>
+      鯖江市役所とアル・プラザ鯖江店で投票できます。<br>
+      健康保険証、運転免許証、マイナンバーカードほかがあればOK！<br>
+      → <a href=https://www.city.sabae.fukui.jp/about_city/senkyo/oshirase/Senkyo0120200925.html xhref=https://www.city.sabae.fukui.jp/about_city/senkyo/Senkyo-kijtumae.html>期日前投票（きじつぜんとうひょう）</a><br>
+      鯖江市役所 9/28(月)〜10/3(土) 8:30-20:00<br>
+      アル・プラザ鯖江 9/30(水)〜10/3(土) 10:00-20:00<br>
+    </td>
+    <td>
+      地区により指定の投票所で朝7時から投票できます。<br>
+      *投票案内はがきがなくても、健康保険証、運転免許証、マイナンバーカードほかがあればOK！<br>
+      → <a href=https://www.city.sabae.fukui.jp/about_city/senkyo/oshirase/Senkyo0120200925.html>指定投票所17箇所 10/4(日) 7:00-20:00</a><br>
+      <a href=https://www.city.sabae.fukui.jp/about_city/senkyo/oshirase/Senkyo-taisaku.files/0778532251.pdf>9-11時が混みそうです</a><br>
+      <a href=https://code4fukui.github.io/find/findpolls.html>投票所を探す</a><br>
+    </td>
+  </tr>
+</table>
+<div>
+
+<div id="credit">
+  <div>アプリ：CC BY <a href=https://c4.sabae.cc/>Code for Sabae</a> (<a href=https://github.com/code4sabae/elec>src on GitHub</a>)</div>
+  <script type='module' src="https://code4sabae.github.io/leaflet-mjs/qr-code.mjs"></script>
+  <qr-code></qr-code>
+</div>
+
+<!--
+<a href=https://docs.google.com/forms/d/e/1FAIpQLSfYwmAa_Lk832_25uEYiKg6chLHuypYUgF3fMpdalX6_hgBrg/viewform>
+<img id=imgpr src="https://fukuno.jig.jp/img4/20200718/qforcandidate.png"><br>
+「鯖江市長選立候補予定者に聞きたいことアンケート（2020鯖江市長選挙 公開討論会）」<br></a>
+JK課からのおばちゃん(OC)課「OCサミット実行委員と有志の会」主催による公開討論会も8/22(土)に向け、事前質問を募集中。<br>
+-->
+
+</body>
+</html>
